@@ -72,3 +72,39 @@ CREATE TABLE percent_canceled_flights AS (
 	ORDER BY
 		4 DESC
 )
+
+-- routes taken by airline with duration and count --
+
+SELECT
+		a.airline
+		,o.city AS origin_city
+		,o.state AS origin_state
+		,d.city AS destination_city
+		,d.state AS destination_state
+		,o.longitude AS origin_longitude
+		,o.latitude AS origin_latitude
+		,d.longitude AS destination_longitude
+		,d.latitude AS destination_latitude
+		,o.airport_code||' - '||d.airport_code AS route
+		,COUNT(*) AS number_of_flights
+		,ROUND(ROUND(AVG(elapsed_time),0)/60,0)||' hours, '||ROUND(ROUND(AVG(elapsed_time),0)%60,0)||' minutes' AS avg_duration
+	FROM
+		flights f
+	JOIN
+		airports o
+	ON
+		o.airport_code = f.origin_airport
+	JOIN
+		airports d
+	ON
+		d.airport_code = f.destination_airport
+	JOIN
+		airlines a
+	ON
+		a.airline_code = f.airline
+	WHERE
+		f.cancelled = 0
+	GROUP BY
+		1,2,3,4,5,6,7,8,9,10
+	ORDER BY
+		2,3,4,5

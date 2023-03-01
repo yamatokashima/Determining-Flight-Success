@@ -62,19 +62,95 @@ HAVING
 ORDER BY
 	5 DESC
 
--- total number of flights by airport --
+-- total number of flights by airport with cancellation rate into/out of --
 
+WITH origin AS(
+	SELECT
+		a.airport AS origin_airport
+		,CAST(COUNT(f.*) AS DECIMAL) AS flights_out_of
+	FROM
+		flights f
+	JOIN
+		airports a
+	ON
+		a.airport_code = f.origin_airport
+	GROUP BY
+		1
+	ORDER BY
+		2 DESC
+),
+destination AS(
+	SELECT
+		a.airport AS destination_airport
+		,CAST(COUNT(f.*) AS DECIMAL) AS flights_into
+	FROM
+		flights f
+	JOIN
+		airports a
+	ON
+		a.airport_code = f.destination_airport
+	GROUP BY
+		1
+	ORDER BY
+		2 DESC
+),
+origin_canceled AS(
+	SELECT
+		a.airport AS origin_airport
+		,CAST(COUNT(f.*) AS DECIMAL) AS canceled_out_of
+	FROM
+		flights f
+	JOIN
+		airports a
+	ON
+		a.airport_code = f.origin_airport
+	WHERE
+		cancelled = 1
+	GROUP BY
+		1
+	ORDER BY
+		2 DESC
+),
+destination_canceled AS(
+	SELECT
+		a.airport AS destination_airport
+		,CAST(COUNT(f.*) AS DECIMAL) AS canceled_into
+	FROM
+		flights f
+	JOIN
+		airports a
+	ON
+		a.airport_code = f.destination_airport
+	WHERE
+		cancelled = 1
+	GROUP BY
+		1
+	ORDER BY
+		2 DESC
+)
 SELECT
-	a.airport
-	,COUNT(f.*)
+	origin.*
+	,origin_canceled.canceled_out_of
+	,ROUND(origin_canceled.canceled_out_of / origin.flights_out_of * 100,2) || '%' AS cancellation_rate_out_of
+	,destination.flights_into
+	,destination_canceled.canceled_into
+	,ROUND(destination_canceled.canceled_into / destination.flights_into * 100,2) || '%' AS cancellation_rate_into
 FROM
-	flights f
-JOIN
-	airports a
+	origin
+LEFT JOIN
+	origin_canceled
 ON
-	a.airport_code = f.origin_airport
+	origin.origin_airport = origin_canceled.origin_airport
+LEFT JOIN
+	destination
+ON
+	origin.origin_airport = destination.destination_airport
+LEFT JOIN
+	destination_canceled
+ON
+	origin.origin_airport = destination_canceled.destination_airport
 GROUP BY
-	1
+	1,2,3,5,6
 ORDER BY
 	2 DESC
 
