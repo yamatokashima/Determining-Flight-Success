@@ -1,5 +1,5 @@
-# Flight Success (WIP)
-## Developed a success rate system to determine flight reliability for airlines and major international airports in the United States
+# Determining Flight Success
+## Developed a success rate system using SQL, Python, Tableau, and Excel to determine flight reliability for major airlines and domestic airports in the United States
 
 ### The Objective:
 Develop a success rate system to determine on-time flights for major international airports in the United States.
