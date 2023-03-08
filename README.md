@@ -60,15 +60,12 @@ The columns that I plan to use for the analysis will be:
 
 ### Analysis:
 Success Rate: The scoring system will be determined based on its perceived importance in relation to other factors adding up to a total of 100 points, where the higher the number, the higher the reliability. The idea is to have a relative scoring system broken down by the following:
-* On-time performance (weighted at 50%):
-* An airline receives a score of 50 if it has a 100% on-time performance rate.
-* For every 1% decrease in on-time performance, deduct 2 points from the score.
-Delay time (weighted at 35%):
-* An airline receives a score of 35 if the average delay time for all its flights is 0 minutes.
-* For every 5-minute increase in average delay time, deduct 1 point from the score.
-Cancellations (weighted at 15%):
-* An airline receives a score of 15 if it has no flight cancellations.
-* For every 1% of flights canceled, deduct 2 points from the score.
+* On-time performance
+* Delay time
+* Cancellations
+* Quantity of flights
+* Quantity of airports serviced
+* Quantity of airlines serviced (Only pertains to the airport score)
 
 ### On-Time Performance and Delay Time Differences:
 For this project, anything within 15 minutes of the scheduled departure and scheduled arrival will be considered as an "on-time" flight. Everything thereafter will be counted under the delay time category. 
