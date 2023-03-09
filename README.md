@@ -1,7 +1,7 @@
 # Determining Flight Success
 ## Developed a success rate system using SQL, Python, Tableau, and Excel to determine flight reliability for major airlines and domestic airports in the United States
 
-![Flight Dashboard](https://user-images.githubusercontent.com/101782618/224170600-7f62bf6e-8605-499a-9ee0-4ede51162f09.JPG)
+![Flight Dashboard](https://user-images.githubusercontent.com/101782618/224171666-212ffe64-9d9a-49ab-b005-0034a73a7b9e.JPG)
 
 ### The Objective:
 Develop a success rate system to determine on-time flights for major international airports in the United States.
@@ -68,6 +68,9 @@ Success Rate: The scoring system will be determined based on its perceived impor
 * Quantity of flights
 * Quantity of airports serviced
 * Quantity of airlines serviced (Only pertains to the airport score)
+
+Maximum airline score = 500
+Maximum airport score = 1000
 
 ### On-Time Performance and Delay Time Differences:
 For this project, anything within 15 minutes of the scheduled departure and scheduled arrival will be considered as an "on-time" flight. Everything thereafter will be counted under the delay time category. 
